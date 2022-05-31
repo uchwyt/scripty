@@ -20,22 +20,23 @@ if (!lifecycleEvent) {
   var scripty = require('./lib/scripty')
   var loadOption = require('./lib/load-option')
   var log = require('./lib/log')
+  var packageJson = require(`${process.env.PWD}/package.json`)
 
   scripty(lifecycleEvent, {
     userArgs: process.argv.slice(2),
-    parallel: loadOption('parallel'),
-    dryRun: loadOption('dryRun'),
-    logLevel: loadOption('logLevel'),
-    quiet: loadOption('quiet'),
-    silent: loadOption('silent'),
-    verbose: loadOption('verbose'),
+    parallel: loadOption('parallel', packageJson),
+    dryRun: loadOption('dryRun', packageJson),
+    logLevel: loadOption('logLevel', packageJson),
+    quiet: loadOption('quiet', packageJson),
+    silent: loadOption('silent', packageJson),
+    verbose: loadOption('verbose', packageJson),
     spawn: {
       stdio: 'inherit'
     },
     resolve: {
-      modules: loadOption('modules'),
-      scripts: loadOption('path'),
-      scriptsWin: loadOption('windowsPath')
+      modules: loadOption('modules', packageJson),
+      scripts: loadOption('path', packageJson),
+      scriptsWin: loadOption('windowsPath', packageJson)
     }
   }, function (er, code) {
     if (er) {
