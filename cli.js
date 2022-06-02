@@ -20,7 +20,8 @@ if (!lifecycleEvent) {
   var scripty = require('./lib/scripty')
   var loadOption = require('./lib/load-option')
   var log = require('./lib/log')
-  var packageJson = require(`${process.env.PWD}/package.json`)
+  // there is no PWD on windows instead there is INIT_PWD
+  var packageJson = require(`${process.env.PWD || process.env.INIT_CWD}/package.json`)
 
   scripty(lifecycleEvent, {
     userArgs: process.argv.slice(2),
